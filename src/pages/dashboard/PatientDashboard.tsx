@@ -1,7 +1,9 @@
 import { Calendar, Users, Clock, TrendingUp, ArrowUp, ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const stats = [
   {
@@ -39,14 +41,15 @@ const stats = [
 ];
 
 const todayAppointments = [
-  { time: "09:00", patient: "Ahmed Bennani", type: "Consultation", status: "confirmed" },
-  { time: "10:30", patient: "Fatima Zahra", type: "Suivi", status: "confirmed" },
-  { time: "11:30", patient: "Youssef Alami", type: "Première visite", status: "pending" },
-  { time: "14:00", patient: "Sara Idrissi", type: "Consultation", status: "confirmed" },
-  { time: "15:30", patient: "Omar Tazi", type: "Contrôle", status: "confirmed" },
+  { time: "09:00", patient: "Dr. Amina Benjelloun", type: "Consultation", status: "confirmed" },
+  { time: "10:30", patient: "Dr. Youssef El Mansouri", type: "Suivi", status: "confirmed" },
+  { time: "11:30", patient: "Dr. Fatima Zahra Alaoui", type: "Première visite", status: "pending" },
+  { time: "14:00", patient: "Dr. Karim Benali", type: "Consultation", status: "confirmed" },
 ];
 
 const PatientDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <DashboardLayout role="patient" userName="Mohammed Bouabdelli">
       <motion.div
@@ -56,13 +59,19 @@ const PatientDashboard = () => {
         className="space-y-6"
       >
         {/* Welcome */}
-        <div>
-          <h1 className="font-display text-2xl font-bold text-foreground">
-            Bonjour, Mohammed 👋
-          </h1>
-          <p className="text-muted-foreground">
-            Voici un aperçu de votre activité aujourd'hui.
-          </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="font-display text-2xl font-bold text-foreground">
+              Bonjour, Mohammed 👋
+            </h1>
+            <p className="text-muted-foreground">
+              Voici un aperçu de votre activité aujourd'hui.
+            </p>
+          </div>
+          <Button variant="hero" onClick={() => navigate("/dashboard/patient/book")}>
+            <Calendar className="w-4 h-4" />
+            Prendre RDV
+          </Button>
         </div>
 
         {/* Stats Grid */}
@@ -105,11 +114,14 @@ const PatientDashboard = () => {
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Today's Appointments */}
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
-                Rendez-vous d'aujourd'hui
+                Prochains rendez-vous
               </CardTitle>
+              <Link to="/dashboard/patient/appointments">
+                <Button variant="ghost" size="sm">Voir tout</Button>
+              </Link>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -153,16 +165,16 @@ const PatientDashboard = () => {
                 { label: "Voir mes documents", icon: Users, href: "/dashboard/patient/documents" },
                 { label: "Modifier mon profil", icon: Clock, href: "/dashboard/patient/profile" },
               ].map((action) => (
-                <a
+                <Link
                   key={action.label}
-                  href={action.href}
+                  to={action.href}
                   className="flex items-center gap-3 p-4 rounded-xl border border-border hover:bg-secondary hover:border-primary/20 transition-all duration-200"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <action.icon className="w-5 h-5 text-primary" />
                   </div>
                   <span className="font-medium text-foreground">{action.label}</span>
-                </a>
+                </Link>
               ))}
             </CardContent>
           </Card>
