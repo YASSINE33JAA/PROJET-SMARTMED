@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Settings, Bell, Shield, Globe, Save, Database } from "lucide-react";
+import { Settings, Bell, Shield, Save } from "lucide-react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -17,9 +17,7 @@ const AdminSettings = () => {
         <h1 className="font-display text-2xl font-bold text-foreground">Paramètres</h1>
         <div className="grid gap-6 max-w-2xl">
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Settings className="w-5 h-5 text-primary" />Général</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2"><Settings className="w-5 h-5 text-primary" />Général</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>Nom de la plateforme</Label><Input defaultValue="SmartMed" /></div>
               <div className="space-y-2"><Label>Email de contact</Label><Input defaultValue="contact@smartmed.ma" /></div>
@@ -63,7 +61,7 @@ const AdminSettings = () => {
               </div>
             </CardContent>
           </Card>
-          <Button variant="hero" onClick={() => toast({ title: "Paramètres sauvegardés" })}><Save className="w-4 h-4" />Sauvegarder</Button>
+          <Button variant="hero" onClick={() => toast({ title: "Paramètres sauvegardés", description: "Les paramètres ont été mis à jour avec succès." })}><Save className="w-4 h-4" />Sauvegarder</Button>
         </div>
       </motion.div>
     </DashboardLayout>

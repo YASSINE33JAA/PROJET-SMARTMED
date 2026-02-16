@@ -1,34 +1,15 @@
 import { Calendar, Users, Clock, FileText, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const stats = [
-  {
-    title: "Rendez-vous du jour",
-    value: "12",
-    icon: Calendar,
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    title: "Mes patients",
-    value: "156",
-    icon: Users,
-    color: "bg-success/10 text-success",
-  },
-  {
-    title: "En attente",
-    value: "4",
-    icon: Clock,
-    color: "bg-warning/10 text-warning",
-  },
-  {
-    title: "Ordonnances ce mois",
-    value: "38",
-    icon: FileText,
-    color: "bg-accent/10 text-accent",
-  },
+  { title: "Rendez-vous du jour", value: "12", icon: Calendar, color: "bg-primary/10 text-primary" },
+  { title: "Mes patients", value: "156", icon: Users, color: "bg-success/10 text-success" },
+  { title: "En attente", value: "4", icon: Clock, color: "bg-warning/10 text-warning" },
+  { title: "Ordonnances ce mois", value: "38", icon: FileText, color: "bg-accent/10 text-accent" },
 ];
 
 const todayAppointments = [
@@ -41,6 +22,8 @@ const todayAppointments = [
 ];
 
 const MedecinDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <DashboardLayout role="medecin" userName="Dr. Amina Benjelloun">
       <motion.div
@@ -49,31 +32,20 @@ const MedecinDashboard = () => {
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        {/* Welcome */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-display text-2xl font-bold text-foreground">
-              Bonjour, Dr. Benjelloun 👋
-            </h1>
-            <p className="text-muted-foreground">
-              Vous avez 12 rendez-vous prévus aujourd'hui.
-            </p>
+            <h1 className="font-display text-2xl font-bold text-foreground">Bonjour, Dr. Benjelloun 👋</h1>
+            <p className="text-muted-foreground">Vous avez 12 rendez-vous prévus aujourd'hui.</p>
           </div>
-          <Button variant="hero">
+          <Button variant="hero" onClick={() => navigate("/dashboard/medecin/schedule")}>
             <Calendar className="w-4 h-4" />
             Voir mon planning
           </Button>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
-            <motion.div
-              key={stat.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
+            <motion.div key={stat.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }}>
               <Card className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
@@ -92,7 +64,6 @@ const MedecinDashboard = () => {
           ))}
         </div>
 
-        {/* Today's Schedule */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
@@ -100,12 +71,7 @@ const MedecinDashboard = () => {
               Planning du jour
             </CardTitle>
             <span className="text-sm text-muted-foreground">
-              {new Date().toLocaleDateString("fr-FR", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {new Date().toLocaleDateString("fr-FR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
             </span>
           </CardHeader>
           <CardContent>
@@ -114,48 +80,24 @@ const MedecinDashboard = () => {
                 <div
                   key={index}
                   className={`flex items-center justify-between p-4 rounded-xl border transition-colors ${
-                    apt.status === "in-progress"
-                      ? "border-primary bg-primary/5"
-                      : apt.status === "completed"
-                      ? "border-border bg-muted/30"
-                      : "border-border hover:bg-secondary/50"
+                    apt.status === "in-progress" ? "border-primary bg-primary/5" : apt.status === "completed" ? "border-border bg-muted/30" : "border-border hover:bg-secondary/50"
                   }`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`text-lg font-bold ${
-                      apt.status === "in-progress" ? "text-primary" : "text-muted-foreground"
-                    }`}>
-                      {apt.time}
-                    </div>
+                    <div className={`text-lg font-bold ${apt.status === "in-progress" ? "text-primary" : "text-muted-foreground"}`}>{apt.time}</div>
                     <div>
-                      <p className={`font-medium ${
-                        apt.status === "completed" ? "text-muted-foreground" : "text-foreground"
-                      }`}>
-                        {apt.patient}
-                      </p>
+                      <p className={`font-medium ${apt.status === "completed" ? "text-muted-foreground" : "text-foreground"}`}>{apt.patient}</p>
                       <p className="text-sm text-muted-foreground">{apt.type}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        apt.status === "completed"
-                          ? "bg-muted text-muted-foreground"
-                          : apt.status === "in-progress"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-secondary text-secondary-foreground"
-                      }`}
-                    >
-                      {apt.status === "completed"
-                        ? "Terminé"
-                        : apt.status === "in-progress"
-                        ? "En cours"
-                        : "À venir"}
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      apt.status === "completed" ? "bg-muted text-muted-foreground" : apt.status === "in-progress" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                    }`}>
+                      {apt.status === "completed" ? "Terminé" : apt.status === "in-progress" ? "En cours" : "À venir"}
                     </span>
                     {apt.status === "upcoming" && (
-                      <Button size="sm" variant="outline">
-                        Détails
-                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => navigate("/dashboard/medecin/appointments")}>Détails</Button>
                     )}
                   </div>
                 </div>
