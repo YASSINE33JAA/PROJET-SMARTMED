@@ -1,13 +1,13 @@
-User-agent: Googlebot
+User-agent(empty)
 Allow: /
 
-User-agent: Bingbot
+User-agent(empty)
 Allow: /
 
-User-agent: Twitterbot
+User-agent(empty)
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent(empty)
 Allow: /
 
 User-agent: *

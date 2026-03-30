@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**URL**(empty)://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
 ## How can I edit this code?
 
@@ -23,16 +23,16 @@ The only requirement is having Node.js & npm installed - [install with nvm](http
 Follow these steps:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Step 1(empty) the repository using the project's Git URL.
+git clone (empty)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2(empty) to the project directory.
+cd (empty)
 
-# Step 3: Install the necessary dependencies.
+# Step 3(empty) the necessary dependencies.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4(empty) the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
@@ -66,7 +66,7 @@ Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and 
 
 ## Can I connect a custom domain to my Lovable project?
 
-Yes, you can!
+Yes, you can
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
